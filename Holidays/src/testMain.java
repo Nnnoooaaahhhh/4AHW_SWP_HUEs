@@ -16,7 +16,9 @@ public class testMain {
 	static LocalDate everyday = LocalDate.now();
 	static Scanner scan = new Scanner(System.in);
 	ArrayList<LocalDate> datesL = new ArrayList<LocalDate>();
+	ArrayList<LocalDate> finalDates = new ArrayList<LocalDate>();
 	ArrayList<String> weekdaysL = new ArrayList<String>();
+	
 
 	public static void main(String[] args) {
 		testMain a = new testMain();
@@ -81,9 +83,12 @@ public class testMain {
 						Integer.parseInt(eElement.getElementsByTagName("Day").item(0).getTextContent())));
 			}
 		}
-		for (int i = 1; i <= years; i++) {
-			datesL.add(datesL.get(i).plusYears(i));
+		for(int y = 0; y < years; y++) {
+			for (int i = 0; i < datesL.size(); i++) {
+				finalDates.add(datesL.get(i).plusYears(y));
+			}
 		}
+
 		for (int i = 0; i < weekdays.getLength(); i++) {
 			Node node = weekdays.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -111,7 +116,7 @@ public class testMain {
 			if (start.equals(end)) {
 				break;
 			}
-			if (datesL.contains(start)) {
+			if (finalDates.contains(start)) {
 				weekDay = start.getDayOfWeek();
 				if (weekDay.equals(DayOfWeek.MONDAY)) {
 					mon++;
