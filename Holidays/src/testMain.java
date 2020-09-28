@@ -28,11 +28,10 @@ public class testMain {
 		a.elementsToArrayList();
 		a.testIfEqual();
 	}
-
+	
 	void whichCountry() {
 		boolean found = false;
 		System.out.println("Länder-Kürzel: ");
-		// scan.close();
 		do {
 			country = scan.next();
 			try {
@@ -40,7 +39,7 @@ public class testMain {
 					file = new File("austria.xml");
 					found = true;
 				} else if (country.equals("pl")) {
-					file = new File("polen.xml");
+					file = new File("poland.xml");
 					found = true;
 				} else {
 					System.out.println("Land nicht gefunden");
@@ -60,17 +59,21 @@ public class testMain {
 			dates = doc.getElementsByTagName("Holiday");
 			weekdays = doc.getElementsByTagName("EasterDay");
 		} catch (Exception e) {
-			System.out.println("Fehler");
+			System.out.println("Something went wrong");
 		}
 	}
 
 	void startEnd() {
-		System.out.println("How many years? ");
-		years = scan.nextInt();
-		System.out.println("Start-Date: (yyyy/mm/dd)");
-		start = LocalDate.of(scan.nextInt(), scan.nextInt(), scan.nextInt());
-		end = start.plusYears(years);
-		scan.close();
+		try {
+			System.out.println("How many years? ");
+			years = scan.nextInt();
+			System.out.println("Start-Date: (yyyy/mm/dd)");
+			start = LocalDate.of(scan.nextInt(), scan.nextInt(), scan.nextInt());
+			end = start.plusYears(years);
+			scan.close();
+		}
+		catch(Exception e) {
+		}
 	}
 
 	void elementsToArrayList() {
@@ -112,48 +115,54 @@ public class testMain {
 		DayOfWeek weekDay;
 		String weekday;
 
-		for (int i = 0; i < i + 1; i++) {
-			if (start.equals(end)) {
-				break;
+		try {
+			for (int i = 0; i < i + 1; i++) {
+				if (start.equals(end)) {
+					break;
+				}
+				if (finalDates.contains(start)) {
+					weekDay = start.getDayOfWeek();
+					if (weekDay.equals(DayOfWeek.MONDAY)) {
+						mon++;
+					}
+					if (weekDay.equals(DayOfWeek.TUESDAY)) {
+						tue++;
+					}
+					if (weekDay.equals(DayOfWeek.WEDNESDAY)) {
+						wed++;
+					}
+					if (weekDay.equals(DayOfWeek.THURSDAY)) {
+						thu++;
+					}
+					if (weekDay.equals(DayOfWeek.FRIDAY)) {
+						fri++;
+					}
+				}
+				start = start.plusDays(1);
 			}
-			if (finalDates.contains(start)) {
-				weekDay = start.getDayOfWeek();
-				if (weekDay.equals(DayOfWeek.MONDAY)) {
-					mon++;
+			for (int i = 0; i < weekdaysL.size(); i++) {
+				weekday = weekdaysL.get(i);
+				if (weekday.equals("MONDAY")) {
+					monx++;
 				}
-				if (weekDay.equals(DayOfWeek.TUESDAY)) {
-					tue++;
+				if (weekday.equals("TUESDAY")) {
+					tuex++;
 				}
-				if (weekDay.equals(DayOfWeek.WEDNESDAY)) {
-					wed++;
+				if (weekday.equals("WEDNESDAY")) {
+					wedx++;
 				}
-				if (weekDay.equals(DayOfWeek.THURSDAY)) {
-					thu++;
+				if (weekday.equals("THURSDAY")) {
+					thux++;
 				}
-				if (weekDay.equals(DayOfWeek.FRIDAY)) {
-					fri++;
+				if (weekday.equals("FRIDAY")) {
+					frix++;
 				}
 			}
-			start = start.plusDays(1);
 		}
-		for (int i = 0; i < weekdaysL.size(); i++) {
-			weekday = weekdaysL.get(i);
-			if (weekday.equals("MONDAY")) {
-				monx++;
-			}
-			if (weekday.equals("TUESDAY")) {
-				tuex++;
-			}
-			if (weekday.equals("WEDNESDAY")) {
-				wedx++;
-			}
-			if (weekday.equals("THURSDAY")) {
-				thux++;
-			}
-			if (weekday.equals("FRIDAY")) {
-				frix++;
-			}
+		catch(Exception e) {
+			System.out.println("Something went wrong");
 		}
+
 		monx = monx * years;
 		tuex = tuex * years;
 		wedx = wedx * years;
