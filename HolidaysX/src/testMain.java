@@ -129,68 +129,10 @@ public class testMain extends Application{
 				if (x == 3) {
 					day = "Pfingstmontag";
 				}
-				date = getWert(json, day);
-				oneDate = date.toCharArray();
-				for (int i = 0; i < 4; i++) {
-					yearx = yearx + oneDate[i];
-				}
-				for (int i = 5; i < 7; i++) {
-					monthx = monthx + oneDate[i];
-				}
-				for (int i = 8; i < 10; i++) {
-					dayOfMonthx = dayOfMonthx + oneDate[i];
-				}
-				year = Integer.parseInt(yearx);
-				month = Integer.parseInt(monthx);
-				dayOfMonth = Integer.parseInt(dayOfMonthx);
-				finalDates.add(LocalDate.of(year, month, dayOfMonth));
+				date = getWert(json, day);		
+				finalDates.add(LocalDate.parse(date));
 			}
-
 		}
-		JSONObject json = new JSONObject(IOUtils.toString(new URL(rightURL()), Charset.forName("UTF-8")));
-		String day = null;
-		String date;
-		int year;
-		int month;
-		int dayOfMonth;
-		String yearx = "";
-		String monthx = "";
-		String dayOfMonthx = "";
-		char oneDate[] = null;
-
-		for (int y = 0; y < 4; y++) {
-			yearx = "";
-			monthx = "";
-			dayOfMonthx = "";
-			if (y == 0) {
-				day = "Ostermontag";
-			}
-			if (y == 1) {
-				day = "Fronleichnam";
-			}
-			if (y == 2) {
-				day = "Christi Himmelfahrt";
-			}
-			if (y == 3) {
-				day = "Pfingstmontag";
-			}
-			date = getWert(json, day);
-			oneDate = date.toCharArray();
-			for (int i = 0; i < 4; i++) {
-				yearx = yearx + oneDate[i];
-			}
-			for (int i = 5; i < 7; i++) {
-				monthx = monthx + oneDate[i];
-			}
-			for (int i = 8; i < 10; i++) {
-				dayOfMonthx = dayOfMonthx + oneDate[i];
-			}
-			year = Integer.parseInt(yearx);
-			month = Integer.parseInt(monthx);
-			dayOfMonth = Integer.parseInt(dayOfMonthx);
-			datesL.add(LocalDate.of(year, month, dayOfMonth));
-		}
-
 	}
 
 	static String rightURL() {
