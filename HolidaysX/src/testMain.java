@@ -105,18 +105,7 @@ public class testMain extends Application{
 			JSONObject json = new JSONObject(IOUtils.toString(new URL(rightURL()), Charset.forName("UTF-8")));
 			String day = null;
 			String date;
-			int year;
-			int month;
-			int dayOfMonth;
-			String yearx = "";
-			String monthx = "";
-			String dayOfMonthx = "";
-			char oneDate[] = null;
-
 			for (int x = 0; x < 4; x++) {
-				yearx = "";
-				monthx = "";
-				dayOfMonthx = "";
 				if (x == 0) {
 					day = "Ostermontag";
 				}
