@@ -7,18 +7,22 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.commons.io.IOUtils;
 import org.json.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.NodeList;import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
 
-public class testMain {
+public class testMain extends Application{
 
 	static String URL = "https://feiertage-api.de/api/?jahr=2020&nur_land=BY";
 	static ArrayList<LocalDate> datesL = new ArrayList<LocalDate>();
@@ -43,6 +47,7 @@ public class testMain {
 		a.datesInAL();
 		a.testIfEqual();
 		a.ausgabe();
+		launch(args);
 
 	}
 
@@ -248,5 +253,34 @@ public class testMain {
 		System.out.println("Holidays on a wednesday: " + wed);
 		System.out.println("Holidays on a thursday: " + thu);
 		System.out.println("Holidays on a friday: " + fri);
+	}
+	
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public void start(Stage stage) throws Exception {
+		NumberAxis yAxis = new NumberAxis();
+		CategoryAxis xAxis= new CategoryAxis();
+		String mondays = "Mondays";
+		String tuesdays = "Tuesdays";
+		String wednesdays = "Wedndesday";
+		String thursdays = "Thursdays";
+		String fridays = "Fridays";
+		
+		stage.setTitle("Holidays per weekday");
+		BarChart<String,Number> bc = new BarChart<String,Number>(xAxis,yAxis);
+	    xAxis.setLabel("Weekday");       
+	    yAxis.setLabel("Holidays");
+	    XYChart.Series series = new XYChart.Series();
+	    series.getData().add(new XYChart.Data(mondays, mon));
+	    series.getData().add(new XYChart.Data(tuesdays, tue));
+	    series.getData().add(new XYChart.Data(wednesdays, wed));
+	    series.getData().add(new XYChart.Data(thursdays, thu));
+	    series.getData().add(new XYChart.Data(fridays, fri));
+	    
+	    Scene scene = new Scene (bc, 800, 600);
+	    bc.getData().addAll(series);
+	    stage.setScene(scene);
+	    stage.show();
 	}
 }
