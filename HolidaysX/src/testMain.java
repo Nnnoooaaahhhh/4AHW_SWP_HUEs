@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 
 public class testMain extends Application{
 
-	static String URL = "https://feiertage-api.de/api/?jahr=2020&nur_land=BY";
+	static String URL;
 	static ArrayList<LocalDate> datesL = new ArrayList<LocalDate>();
 	static ArrayList<LocalDate> finalDates = new ArrayList<LocalDate>();
 	static NodeList dates;
@@ -33,7 +33,7 @@ public class testMain extends Application{
 	static LocalDate start;
 	static LocalDate end;
 	static Scanner scan = new Scanner(System.in);
-	static int yearURL = LocalDate.now().getYear();
+	static int yearURL;
 	static int mon = 0;
 	static int tue = 0;
 	static int wed = 0;
@@ -79,6 +79,7 @@ public class testMain extends Application{
 			start = LocalDate.of(scan.nextInt(), scan.nextInt(), scan.nextInt());
 			end = start.plusYears(years);
 			scan.close();
+			yearURL = start.getYear();
 		} catch (Exception e) {
 		}
 	}
