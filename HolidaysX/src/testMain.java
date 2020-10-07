@@ -49,7 +49,6 @@ public class testMain extends Application{
 		a.testIfEqual();
 		a.ausgabe();
 		launch(args);
-
 	}
 
 	static String getWert(JSONObject json, String key) throws JSONException {
@@ -94,7 +93,7 @@ public class testMain extends Application{
 						Integer.parseInt(eElement.getElementsByTagName("Day").item(0).getTextContent())));
 			}
 		}
-		for (int y = 0; y < years; y++) {
+		for (int y = 0; y <= years; y++) {
 			for (int i = 0; i < datesL.size(); i++) {
 				finalDates.add(datesL.get(i).plusYears(y));
 			}
@@ -102,7 +101,7 @@ public class testMain extends Application{
 	}
 
 	void datesInAL() throws MalformedURLException, JSONException, IOException {
-		for (int y = 0; y < years; y++) {
+		for (int y = 0; y <= years; y++) {
 			JSONObject json = new JSONObject(IOUtils.toString(new URL(rightURL()), Charset.forName("UTF-8")));
 			String day = null;
 			String date;
@@ -132,13 +131,7 @@ public class testMain extends Application{
 	}
 
 	void testIfEqual() {
-		int monx = 0;
-		int tuex = 0;
-		int wedx = 0;
-		int thux = 0;
-		int frix = 0;
 		DayOfWeek weekDay;
-
 		try {
 			for (int i = 0; i < i + 1; i++) {
 				if (start.equals(end)) {
@@ -167,17 +160,6 @@ public class testMain extends Application{
 		} catch (Exception e) {
 			System.out.println("Something went wrong");
 		}
-
-		monx = monx * years;
-		tuex = tuex * years;
-		wedx = wedx * years;
-		thux = thux * years;
-		frix = frix * years;
-		mon = mon + monx;
-		tue = tue + tuex;
-		wed = wed + wedx;
-		thu = thu + thux;
-		fri = fri + frix;
 	}
 	
 	void ausgabe() {
@@ -200,7 +182,7 @@ public class testMain extends Application{
 		String thursdays = "Thursdays";
 		String fridays = "Fridays";
 		
-		stage.setTitle("Holidays per weekday");
+		stage.setTitle("Holidays per weekday during " + (end.minusYears(years)) + " - " + end);
 		BarChart<String,Number> bc = new BarChart<String,Number>(xAxis,yAxis);
 	    xAxis.setLabel("Weekday");       
 	    yAxis.setLabel("Holidays");
@@ -210,6 +192,7 @@ public class testMain extends Application{
 	    series.getData().add(new XYChart.Data(wednesdays, wed));
 	    series.getData().add(new XYChart.Data(thursdays, thu));
 	    series.getData().add(new XYChart.Data(fridays, fri));
+	    series.setName("Holidays per weekday");
 	    
 	    Scene scene = new Scene (bc, 800, 600);
 	    bc.getData().addAll(series);
