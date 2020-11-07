@@ -12,6 +12,8 @@ import org.w3c.dom.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.sql.*;
 
@@ -34,11 +36,17 @@ public class testMain extends Application {
 	static int wed = 0;
 	static int thu = 0;
 	static int fri = 0;
+	static int monwith;
+	static int tuewith;
+	static int wedwith;
+	static int thuwith;
+	static int friwith;
 	static int lifetimeMondays = 0;
 	static int lifetimeTuesdays = 0;
 	static int lifetimeWednesdays = 0;
 	static int lifetimeThursdays = 0;
 	static int lifetimeFridays = 0;
+	static int lifetimeYears = 0;
 	
 	static boolean freeDay = false;
 
@@ -143,9 +151,6 @@ public class testMain extends Application {
 				if (frees.contains(start)) {
 					freeDay = true;
 				}
-				if (start.equals(end)) {
-					break;
-				}
 				if (finalDates.contains(start) && !freeDay) {
 					weekDay = start.getDayOfWeek();
 					if (weekDay.equals(DayOfWeek.MONDAY)) {
@@ -164,8 +169,29 @@ public class testMain extends Application {
 						fri++;
 					}
 				}
+				if(finalDates.contains(start)) {
+					weekDay = start.getDayOfWeek();
+					if (weekDay.equals(DayOfWeek.MONDAY)) {
+						monwith++;
+					}
+					if (weekDay.equals(DayOfWeek.TUESDAY)) {
+						tuewith++;
+					}
+					if (weekDay.equals(DayOfWeek.WEDNESDAY)) {
+						wedwith++;
+					}
+					if (weekDay.equals(DayOfWeek.THURSDAY)) {
+						thuwith++;
+					}
+					if (weekDay.equals(DayOfWeek.FRIDAY)) {
+						friwith++;
+					}
+				}
 				start = start.plusDays(1);
 				freeDay = false;
+				if (start.equals(end)) {
+					break;
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("Something went wrong");
@@ -173,42 +199,62 @@ public class testMain extends Application {
 	}
 
 	void ausgabe() {
-		System.out.println("\n" + "Holidays on a monday: " + mon);
-		System.out.println("Holidays on a tuesday: " + tue);
-		System.out.println("Holidays on a wednesday: " + wed);
-		System.out.println("Holidays on a thursday: " + thu);
-		System.out.println("Holidays on a friday: " + fri);
-		 
-        System.out.print("\n" + "Lifetime Mondays :" + lifetimeMondays);
-        System.out.print("\n" + "Lifetime Tuesdays :" + lifetimeTuesdays);
-        System.out.print("\n" + "Lifetime Wednesdays :" + lifetimeWednesdays);
-        System.out.print("\n" + "Lifetime Thursdays :" + lifetimeThursdays);
-        System.out.print("\n" + "Lifetime Fridays :" + lifetimeFridays);
-	}
+        System.out.print("\n" + "Lifetime Mondays: " + lifetimeMondays);
+        System.out.print("\n" + "Lifetime Tuesdays: " + lifetimeTuesdays);
+        System.out.print("\n" + "Lifetime Wednesdays: " + lifetimeWednesdays);
+        System.out.print("\n" + "Lifetime Thursdays: " + lifetimeThursdays);
+        System.out.print("\n" + "Lifetime Fridays: " + lifetimeFridays);
+        System.out.print("\n" + "Lifetime Years: " + lifetimeYears + "\n");
+	
+		System.out.println("\n" + "Holidays on a monday with vacation: " + mon);
+		System.out.println("Holidays on a tuesday with vacation: " + tue);
+		System.out.println("Holidays on a wednesday with vacation: " + wed);
+		System.out.println("Holidays on a thursday with vacation: " + thu);
+		System.out.println("Holidays on a friday with vacation: " + fri + "\n");
+		
+		System.out.println("Holidays on a monday without vacation: " + monwith);
+		System.out.println("Holidays on a tuesday without vacation: " + tuewith);
+		System.out.println("Holidays on a wednesday without vacation: " + wedwith);
+		System.out.println("Holidays on a thursday without vacation: " + thuwith);
+		System.out.println("Holidays on a friday without vacation: " + friwith);
+		
+	
+}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void start(Stage stage) throws Exception {
 		NumberAxis yAxis = new NumberAxis();
 		CategoryAxis xAxis = new CategoryAxis();
-		String mondays = "Mondays";
-		String tuesdays = "Tuesdays";
-		String wednesdays = "Wedndesday";
-		String thursdays = "Thursdays";
-		String fridays = "Fridays";
+		String mondays = "Mondays: " + mon;
+		String tuesdays = "Tuesdays: " + tue;
+		String wednesdays = "Wedndesday: " + wed;
+		String thursdays = "Thursdays: " + thu;
+		String fridays = "Fridays: " + fri;
 		stage.setTitle("Holidays per weekday during " + (end.minusYears(years)) + " - " + end);
 		BarChart<String, Number> bc = new BarChart<String, Number>(xAxis, yAxis);
 		xAxis.setLabel("Weekday");
 		yAxis.setLabel("Holidays");
+		xAxis.setTickLabelFill(Color.BLACK);
+		yAxis.setTickLabelFill(Color.BLACK);
+		xAxis.setTickLabelFont(Font.font(20));
+		yAxis.setTickLabelFont(Font.font(20));
 		XYChart.Series series = new XYChart.Series();
 		series.getData().add(new XYChart.Data(mondays, mon));
 		series.getData().add(new XYChart.Data(tuesdays, tue));
 		series.getData().add(new XYChart.Data(wednesdays, wed));
 		series.getData().add(new XYChart.Data(thursdays, thu));
 		series.getData().add(new XYChart.Data(fridays, fri));
-		series.setName("Holidays per weekday");
+		series.setName("Holidays per Weekday with vacation");
+		XYChart.Series series2 = new XYChart.Series();
+		series2.getData().add(new XYChart.Data("Mondays without vacation: " + monwith, monwith));
+		series2.getData().add(new XYChart.Data("Tuesdays without vacation: " + tuewith, tuewith));
+		series2.getData().add(new XYChart.Data("Wednesdays  without vacation: " + wedwith, wedwith));
+		series2.getData().add(new XYChart.Data("Thursdays  without vacation: " + thuwith, thuwith));
+		series2.getData().add(new XYChart.Data("Fridays without vacation: " + friwith, friwith));
+		series2.setName("Holidays per weekday without vacation");
 		Scene scene = new Scene(bc, 800, 600);
-		bc.getData().addAll(series);
+		bc.getData().addAll(series, series2);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -241,7 +287,7 @@ public class testMain extends Application {
 
 	void database(String databasename) {
 		String url = "jdbc:sqlite:" + databasename;
-		String sql = "CREATE TABLE if not exists testdata ( date text, mondays int, tuesdays int, wednesdays int, thursdays int, fridays int, years int)";
+		String sql = "CREATE TABLE if not exists testdata (date text, mondays int, tuesdays int, wednesdays int, thursdays int, fridays int, years int)";
 		try {
 			Connection conn = DriverManager.getConnection(url);
 			Statement stmt = conn.createStatement();
@@ -272,24 +318,30 @@ public class testMain extends Application {
             Statement stmt  = conn.createStatement();  
             ResultSet rs    = stmt.executeQuery(sql);  
             int temp;
+            
+            System.out.println("\n" + "Database:");
+            System.out.println("Date of Execution" +  "\t" + "Mondays" + "\t" +  "\t" + "Tuesdays" + "\t" + "Wednesdays" + "\t" + "Thursdays" + "\t" + "Fridays" + "\t" +  "\t" + "Years" + "\t");
             while (rs.next()) {  
-                System.out.print(rs.getString("date") +  "\t");   
+                System.out.print(rs.getString("date") +  "\t" +  "\t");   
                 temp = rs.getInt("mondays");
-                System.out.print(temp + "\t");
+                System.out.print(temp + "\t" +  "\t");
                 lifetimeMondays = lifetimeMondays + temp;
                 temp = rs.getInt("tuesdays");
-                System.out.print(temp + "\t");
+                System.out.print(temp + "\t" +  "\t");
                 lifetimeTuesdays = lifetimeTuesdays + temp;
                 temp = rs.getInt("wednesdays");
-                System.out.print(temp + "\t");
+                System.out.print(temp + "\t" +  "\t");
                 lifetimeWednesdays = lifetimeWednesdays + temp;
                 temp = rs.getInt("thursdays");
-                System.out.print(temp + "\t");
+                System.out.print(temp + "\t" +  "\t");
                 lifetimeThursdays = lifetimeThursdays + temp;
                 temp = rs.getInt("fridays");
-                System.out.print(temp + "\t");
-                System.out.println(rs.getInt("years"));
+                System.out.print(temp + "\t" +  "\t");
                 lifetimeFridays = lifetimeFridays + temp;
+                temp = rs.getInt("years");
+                System.out.println(temp);
+                lifetimeYears = lifetimeYears + temp;
+                
             }
         } catch (SQLException e) {  
             System.out.println(e.getMessage());  
