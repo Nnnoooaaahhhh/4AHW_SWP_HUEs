@@ -1,4 +1,4 @@
-<h1>ReadMe</h1>
+<h1>Feiertagzähler, mit und ohne Ferien</h1>
 
 Die .java Datei des Programmes kann hier direkt über Github heruntergeladen werden;
 
@@ -37,6 +37,7 @@ Nun werden noch alle Daten aus der Datenbank ausgegeben, alle Lifetime-Tage zusa
 und schließlich noch ein JAVAFX Diagramm mit den Daten des derzeit ausgeführten Programms aufgerufen;
 Beim JAVAFX Diagramm werden wieder die Tage ohne Ferien und mit Ferien dargestellt;
 
-Preview des JAVAFX Diagrammes, bei einer Anzahl von Jahren von 10:
+Preview des JAVAFX Diagrammes, bei einer Anzahl von Jahren von 10;
 
-![Preview](https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/HolidaysX/example.PNG)
+<img src = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/HolidaysX/example.PNG">
+
