@@ -1,3 +1,11 @@
+Die für die Ausführung nötigen Libraries, können hier heruntergeladen werden:
+
+[Link 1]https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+
+[Link 2]https://mvnrepository.com/artifact/commons-io/commons-io
+
+[Link 3]https://mvnrepository.com/artifact/org.json/json/20140107
+
 Das Programm dient dazu, Aktienwerte auszulesen und auszuwerten;
 
 Mit akutellem Stand findet momentan ein API-Aufruf statt, bei der die jeweilige Aktie zuvor eingegeben werden muss (z.B.: TSLA, AAPL,...) 
