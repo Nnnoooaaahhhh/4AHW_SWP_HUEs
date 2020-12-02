@@ -6,6 +6,8 @@ Die für die Ausführung nötigen Libraries, können hier heruntergeladen werden
 
 [Link 3]https://mvnrepository.com/artifact/org.json/json/20140107
 
+Die heruntergeladenen Libraries müssen dann zum Classpath hinzugefügt werden, dies ist aber je nach IDE unterschiedlich
+
 Das Programm dient dazu, Aktienwerte auszulesen und auszuwerten;
 
 Mit akutellem Stand findet momentan ein API-Aufruf statt, bei der die jeweilige Aktie zuvor eingegeben werden muss (z.B.: TSLA, AAPL,...) 
