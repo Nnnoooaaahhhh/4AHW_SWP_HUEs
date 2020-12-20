@@ -28,7 +28,7 @@ Dieser stelle die Close-Werte und die AVG-Werte als Linie dar -> Die AVG-Linie i
 Falls der letzte verfügbare Close-Wert kleiner als der letzte verfügbare AVG-Wert ist, wird die Linie rot dargestellt, da diese dann eine "schlechte" Aktie ist;
 Ist der letzte verfügbare Close-Wert allerdings größer als der letzte verfügbare AVG-Wert, wird die Linie grün dargestellt, da dies dann eine "gute" Aktie ist;
 
-Beispiel für eine "schlechte" Aktie:
+Beispiel für eine "schlechte" Aktie:<br>
 <img src = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/StockMarketProject/exampleRed.PNG">
 <br><br>
 Beispiel für eine "gute" Aktie:<br>
