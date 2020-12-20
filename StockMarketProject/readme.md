@@ -31,5 +31,5 @@ Ist der letzte verfügbare Close-Wert allerdings größer als der letzte verfüg
 Beispiel für eine "schlechte" Aktie:
 <img src = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/StockMarketProject/exampleRed.PNG">
 <br><br>
-Beispiel für eine "gute" Aktie:
+Beispiel für eine "gute" Aktie:<br>
 <img src = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/StockMarketProject/exampleGreen.PNG">
