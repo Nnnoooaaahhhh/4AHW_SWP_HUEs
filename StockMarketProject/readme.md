@@ -12,6 +12,21 @@ Die heruntergeladenen Libraries müssen dann zum Classpath hinzugefügt werden, 
 
 Das Programm dient dazu, Aktienwerte auszulesen und auszuwerten;
 
-Mit aktuellem Stand findet momentan ein API-Aufruf statt, bei der die jeweilige Aktie zuvor eingegeben werden muss (z.B.: TSLA, AAPL,...) 
-Von der ausgewählten Aktie werden dann die letzten 100 täglichen Werte abgerufen, und diese dann mit dem jeweiligen close-Wert in einer Datenbank
-name "infos.db" abgespeichert; in dieser Datenbank wird auch eine Tabelle mit dem jeweiligen Namen der Aktie angelegt, falls diese noch nicht existiert;
+Bei diesem Programm findet ein API-Aufruf statt, der "close-Werte", also die jeweiligen Werte bei der eine Aktie am Tagesende geschlossen hat, zurückgibt.
+Diese Werte werden mithilfe des Datum, das eindeutig ist, sortiert und in eine Datenbank abgespeichert.
+
+Zum Ausführen des Programms muss am Anfang, nach der ersten Abfrage, die Abkürzung einer Aktie angegeben werden; z.B.: AAPL (für Apple);
+Als nächstes wird die API aufgerufen, und alle verfügbaren close-Werte abgerufen. 
+Diese werden mithilfe des Datums sortiert und in einer Tabelle in der zuvor erstellten Datenbank "infos.db" abgespeichert. Wenn der API-Aufruf stattgefunden hat, 
+aber noch keine Tabelle in der Datenbank mit dem Namen der Aktie existiert, wird eine neue Tabelle mit den Spalten date, amount und avg angelegt. 
+Falls die Tabelle bereits existiert, wird diese verwendet. 
+In die "date"-Spalte, wird das jeweilige Datum eingetragen, in die "amount"-Spalte der jeweilige close-Wert;
+In die "avg"-spalte, wird der gleitende Durchschnitt für den jeweiligen Tag aus den letzten 200 Tagen eingetragen -> Dies wird erreicht, indem die letzten 200 close-Werte addiert werden, und anschließend durch 200 subtrahiert werden. 
+
+Mit den in der Datenbank abgespeicherten Daten, wird zum Schluss noch ein JAVAFX-Linechart erstellt;
+Dieser stelle die Close-Werte und die AVG-Werte als Linie dar -> Die AVG-Linie ist immer schwarz dargestellt, die Farbe der Close-Linie hängt allerdings vom letzten verfügbaren Close-Wert ab;
+Falls der letzte verfügbare Close-Wert kleiner als der letzte verfügbare AVG-Wert ist, wird die Linie rot dargestellt, da diese dann eine "schlechte" Aktie ist;
+Ist der letzte verfügbare Close-Wert allerdings größer als der letzte verfügbare AVG-Wert, wird die Linie grün dargestellt, da dies dann eine "gute" Aktie ist;
+
+Beispiel für eine "schlechte" Aktie:
+<img source = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/StockMarketProject/exampleRed.PNG">
