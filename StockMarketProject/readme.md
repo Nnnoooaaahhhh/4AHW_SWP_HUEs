@@ -23,6 +23,8 @@ Falls die Tabelle bereits existiert, wird diese verwendet. Es wird pro Aktie auc
 
 Mit den in der Datenbank abgespeicherten Daten, wird zum Schluss noch ein JAVAFX-Linechart erstellt;<br>
 Dieser stellt die Close-Werte und die AVG-Werte als Linie dar -> Die AVG-Linie ist immer schwarz dargestellt, die Close-Linie wird grau dargestellt. was auch an der Legende zu erkennen ist;
+Die End-Werte der Y-Achse orientieren sich am höchsten und niedrigsten close-Wert -> der unterste Punkt der Achse liegt 10% unter dem niedriegsten close-Wert, der oberste Punkt liegt 10% über dem höchsten close-Wert
+
 Falls der letzte verfügbare Close-Wert kleiner als der letzte verfügbare AVG-Wert ist, wird der Hintergrund des Charts rot dargestellt, da diese dann eine "schlechte" Aktie ist;
 Ist der letzte verfügbare Close-Wert allerdings größer als der letzte verfügbare AVG-Wert, wird der Hintergrund des Charts grün dargestellt, da dies dann eine "gute" Aktie ist;
 
