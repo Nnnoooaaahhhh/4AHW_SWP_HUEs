@@ -22,7 +22,7 @@ aber noch keine Tabelle in der Datenbank mit dem Namen der Aktie existiert, wird
 Falls die Tabelle bereits existiert, wird diese verwendet. Es wird pro Aktie auch noch eine zweite Tabelle erzeut, in der im jetzigen Zustand das jeweilige Datum mit dem dazugehörenden gleitenden Durchschnitt der letzten 200 Tage abgespeichert wird;<br>
 
 Mit den in der Datenbank abgespeicherten Daten, wird zum Schluss noch ein JAVAFX-Linechart erstellt;<br>
-Dieser stellt die Close-Werte und die AVG-Werte als Linie dar -> Die AVG-Linie ist immer schwarz dargestellt, die Close-Linie wird grau dargestellt. was auch an der Legende zu erkennen ist;
+Dieser stellt die Close-Werte und die AVG-Werte als Linie dar -> Die AVG-Linie ist immer schwarz dargestellt, die Close-Linie wird grau dargestellt. was auch an der Legende zu erkennen ist;<br>
 Die End-Werte der Y-Achse orientieren sich am höchsten und niedrigsten close-Wert -> der unterste Punkt der Achse liegt 10% unter dem niedriegsten close-Wert, der oberste Punkt liegt 10% über dem höchsten close-Wert
 
 Falls der letzte verfügbare Close-Wert kleiner als der letzte verfügbare AVG-Wert ist, wird der Hintergrund des Charts rot dargestellt, da diese dann eine "schlechte" Aktie ist;
