@@ -2,11 +2,11 @@
 
 Die für die Ausführung nötigen Libraries, können hier heruntergeladen werden:
 
-[Link 1]https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+[Link 1] https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
 
-[Link 2]https://mvnrepository.com/artifact/commons-io/commons-io
+[Link 2] https://mvnrepository.com/artifact/commons-io/commons-io
 
-[Link 3]https://mvnrepository.com/artifact/org.json/json/20140107
+[Link 3] https://mvnrepository.com/artifact/org.json/json/20140107
 
 Die heruntergeladenen Libraries müssen dann zum Classpath hinzugefügt werden, dies ist aber je nach IDE unterschiedlich
 
