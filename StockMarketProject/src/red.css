@@ -1,0 +1,15 @@
+.chart-plot-background{
+    -fx-background-color: #FB2C00;
+}
+.chart-vertical-grid-lines{
+    -fx-stroke:transparent;
+}
+.chart-horizontal-grid-lines{
+    -fx-stroke:transparent;
+}
+
+.default-color0.chart-series-line { -fx-stroke: #a9a9a9; }
+.default-color0.chart-line-symbol { -fx-background-color: #a9a9a9, white; }
+
+.default-color1.chart-series-line { -fx-stroke: #000000; }
+.default-color1.chart-line-symbol { -fx-background-color: #000000, white; }
