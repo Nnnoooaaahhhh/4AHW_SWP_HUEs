@@ -19,14 +19,12 @@ Zum Ausführen des Programms muss am Anfang, nach der ersten Abfrage, die Abkür
 Als nächstes wird die API aufgerufen, und alle verfügbaren close-Werte abgerufen. 
 Diese werden mithilfe des Datums sortiert und in einer Tabelle in der zuvor erstellten Datenbank "infos.db" abgespeichert. Wenn der API-Aufruf stattgefunden hat, 
 aber noch keine Tabelle in der Datenbank mit dem Namen der Aktie existiert, wird eine neue Tabelle mit den Spalten date, amount und avg angelegt. 
-Falls die Tabelle bereits existiert, wird diese verwendet. <br>
-In die "date"-Spalte, wird das jeweilige Datum eingetragen, in die "amount"-Spalte der jeweilige close-Wert;
-In die "avg"-spalte, wird der gleitende Durchschnitt für den jeweiligen Tag aus den letzten 200 Tagen eingetragen -> Dies wird erreicht, indem die letzten 200 close-Werte addiert werden, und anschließend durch 200 subtrahiert werden. 
+Falls die Tabelle bereits existiert, wird diese verwendet. Es wird pro Aktie auch noch eine zweite Tabelle erzeut, in der im jetzigen Zustand das jeweilige Datum mit dem dazugehörenden gleitenden Durchschnitt der letzten 200 Tage abgespeichert wird;<br>
 
 Mit den in der Datenbank abgespeicherten Daten, wird zum Schluss noch ein JAVAFX-Linechart erstellt;<br>
-Dieser stelle die Close-Werte und die AVG-Werte als Linie dar -> Die AVG-Linie ist immer schwarz dargestellt, die Farbe der Close-Linie hängt allerdings vom letzten verfügbaren Close-Wert ab;
-Falls der letzte verfügbare Close-Wert kleiner als der letzte verfügbare AVG-Wert ist, wird die Linie rot dargestellt, da diese dann eine "schlechte" Aktie ist;
-Ist der letzte verfügbare Close-Wert allerdings größer als der letzte verfügbare AVG-Wert, wird die Linie grün dargestellt, da dies dann eine "gute" Aktie ist;
+Dieser stellt die Close-Werte und die AVG-Werte als Linie dar -> Die AVG-Linie ist immer schwarz dargestellt, die Close-Linie wird grau dargestellt. was auch an der Legende zu erkennen ist;
+Falls der letzte verfügbare Close-Wert kleiner als der letzte verfügbare AVG-Wert ist, wird der Hintergrund des Charts rot dargestellt, da diese dann eine "schlechte" Aktie ist;
+Ist der letzte verfügbare Close-Wert allerdings größer als der letzte verfügbare AVG-Wert, wird der Hintergrund des Charts grün dargestellt, da dies dann eine "gute" Aktie ist;
 
 Beispiel für eine "schlechte" Aktie:<br>
 <img src = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/StockMarketProject/exampleRed.PNG">
