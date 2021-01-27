@@ -16,6 +16,7 @@ Bei diesem Programm findet ein API-Aufruf statt, der "close-Werte", also die jew
 Diese Werte werden mithilfe des Datum, das eindeutig ist, sortiert und in eine Datenbank abgespeichert. 
 
 Zum Ausführen des Programms muss am Anfang, nach der ersten Abfrage, die Abkürzung einer Aktie angegeben werden; z.B.: AAPL (für Apple); <br>
+Als nächstes muss noch der API-Key angegeben werden, denn man von [Link] https://www.alphavantage.co/ gratis anfragen kann; <br>
 Als nächstes wird die API aufgerufen, und alle verfügbaren close-Werte abgerufen. 
 Diese werden mithilfe des Datums sortiert und in einer Tabelle in der zuvor erstellten Datenbank "infos.db" abgespeichert. Wenn der API-Aufruf stattgefunden hat, 
 aber noch keine Tabelle in der Datenbank mit dem Namen der Aktie existiert, wird eine neue Tabelle mit den Spalten date, amount und avg angelegt. 
