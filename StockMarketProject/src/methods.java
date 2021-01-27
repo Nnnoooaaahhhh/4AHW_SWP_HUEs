@@ -17,10 +17,11 @@ public class methods {
 	static ArrayList<Float> values = new ArrayList<Float>();
 	static JSONObject b;
 	String firstDate;
+	static String key;
 
 	void connect(String abbr) throws JSONException, MalformedURLException, IOException {
 		String link = IOUtils.toString(new URL("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="
-				+ abbr + "&outputsize=full&apikey=U6CC2C8C3M2IVA5G"), Charset.forName("UTF-8"));
+				+ abbr + "&outputsize=full&apikey="+key), Charset.forName("UTF-8"));
 		JSONObject ob = new JSONObject(link);
 		b = ob.getJSONObject("Time Series (Daily)");
 		for (int i = 0; i < b.names().length(); i++) {
@@ -37,6 +38,8 @@ public class methods {
 		Scanner a = new Scanner(System.in);
 		System.out.println("Abbreviation (e.g.: AAPL, TSLA, IBM, ...): ");
 		symbol = a.next();
+		System.out.println("API-KEY: ");
+		key = a.next();
 		a.close();
 		return symbol;
 	}
