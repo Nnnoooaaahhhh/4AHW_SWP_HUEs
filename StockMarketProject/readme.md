@@ -31,7 +31,7 @@ Ist der letzte verfügbare Close-Wert allerdings größer als der letzte verfüg
 Die Einfärbung der Charts erfolgt in beiden Fällen mit einer externen .css-Datei;
 
 Beispiel für eine "schlechte" Aktie:<br>
-<img src = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/StockMarketProject/RedExample.PNG">
+<img src = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/StockMarketProject/RedExample.png">
 <br><br>
 Beispiel für eine "gute" Aktie:<br>
-<img src = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/StockMarketProject/GreenExample.PNG">
+<img src = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/StockMarketProject/GreenExample.png">
