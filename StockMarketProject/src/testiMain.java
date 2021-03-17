@@ -1,11 +1,14 @@
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-
+import javax.imageio.ImageIO;
+import javafx.scene.image.WritableImage;
 import org.json.JSONException;
-
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.stage.Stage;
@@ -33,8 +36,8 @@ public class testiMain extends Application{
 		series1.setName("Close-Values");
 		series2.setName("AVG-Values");
 		Connection conn = DriverManager.getConnection(methods.DBurl);
-		String sql = "SELECT * from " + methods.symbol + " order by date asc";
-		String sql2 = "SELECT * from " + methods.symbol+"avg" + " order by date asc";
+		String sql = "SELECT * from " + methods.symbol +"Adj"+ " order by date asc";
+		String sql2 = "SELECT * from " + methods.symbol+"avgAdj" + " order by date asc";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -59,8 +62,8 @@ public class testiMain extends Application{
 		
 		Scene scene = new Scene(lineChart,800,600);
 		lineChart.getData().addAll(series1, series2);
-		sql = "SELECT * from " + methods.symbol + " order by date desc limit 1";
-		sql2 = "SELECT * from " + methods.symbol+"avg" + " order by date desc limit 1";
+		sql = "SELECT * from " + methods.symbol +"Adj" + " order by date desc limit 1";
+		sql2 = "SELECT * from " + methods.symbol+"avgAdj" + " order by date desc limit 1";
 		float lastClose = 0;
 		float lastAVG = 0;
 		try {
@@ -82,7 +85,7 @@ public class testiMain extends Application{
 		}
 		series2.getNode().setStyle("-fx-stroke: black; ");
 		
-		sql = "SELECT * from " + methods.symbol +" order by amount desc";
+		sql = "SELECT * from " + methods.symbol + "Adj"+" order by amount desc";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -98,6 +101,19 @@ public class testiMain extends Application{
 		yAxis.setUpperBound(amounts.get(amounts.size()-1)*1.1);
 		stage.setScene(scene);
 		stage.show();
+		
+		saveAsPng(scene, methods.symbol+ LocalDate.now().toString()+".png");
+		
+		}
+	
+		void saveAsPng(Scene scene, String path){
+			WritableImage image = scene.snapshot(null);
+			File file = new File(path);
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 		}
 
 }
