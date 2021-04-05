@@ -15,8 +15,15 @@ Das Programm dient dazu, Aktienwerte auszulesen und auszuwerten;
 Bei diesem Programm findet ein API-Aufruf statt, der "close-Werte", also die jeweiligen Werte bei der eine Aktie am Tagesende geschlossen hat, zurückgibt.
 Diese Werte werden mithilfe des Datum, das eindeutig ist, sortiert und in eine Datenbank abgespeichert. 
 
-Zum Ausführen des Programms muss am Anfang, nach der ersten Abfrage, die Abkürzung einer Aktie angegeben werden; z.B.: AAPL (für Apple); <br>
-Als nächstes muss noch der API-Key angegeben werden, denn man von [Link] https://www.alphavantage.co/ gratis anfragen kann; <br>
+Am Anfang muss in der Textdatei, die sich im gleichen Verzeichnis wie das Programm befindet folgendes enthalten sein:<br>
+1. Zeile: API-KEY<br>
+2. Zeile: Anfangsdatum für die Zeichnung des Diagramms<br>
+3. Zeile: Enddatum für die Zeichnung des Diagramms<br>
+4. Zeile: größe des API-Aufrufs, full bzw. compact<br>
+5. Zeile: Ab dieser Zeile stehen die Aktien-Abkürzunge, einer pro Zeile<br>
+
+Der API-KEY kann von der Website www.alphavantage.co angefragt werden.<br>
+
 Als nächstes wird die API aufgerufen, und alle verfügbaren close-Werte abgerufen. 
 Diese werden mithilfe des Datums sortiert und in einer Tabelle in der zuvor erstellten Datenbank "infos.db" abgespeichert. Wenn der API-Aufruf stattgefunden hat, 
 aber noch keine Tabelle in der Datenbank mit dem Namen der Aktie existiert, wird eine neue Tabelle mit den Spalten date, amount und avg angelegt. 
@@ -30,8 +37,15 @@ Falls der letzte verfügbare Close-Wert kleiner als der letzte verfügbare AVG-W
 Ist der letzte verfügbare Close-Wert allerdings größer als der letzte verfügbare AVG-Wert, wird der Hintergrund des Charts grün dargestellt, da dies dann eine "gute" Aktie ist;
 Die Einfärbung der Charts erfolgt in beiden Fällen mit einer externen .css-Datei;
 
-Die Split-Correction wurde bereits eingeführt.
+Diese Diagramme werden im gleichen Verzeichnis im Ordner Stocks -> Aktienname -> "Datum + Aktienname".png gespeichert
 
+<br><br>
+<h4> Tägliches Ausführen: </h4> <br>
+Wenn man das Programm täglich ausführen möchte, kann man dazu den "JARFolder" verwenden
+In diesem Ordner befindet sich eine .bat Datei, die durch Ausführen die Jar-Datei ausführt; Wenn man das Programm nun täglich Ausführen möchte, muss man die .bat Datei einfach als Aufgabe im Aufgabenplaner des jeweiligen Betriebssystems hinzufügen; Die erzeugten Grafiken werden erneut im gleichen Verzeichnis abgespeichert; Wenn man verschiedene Aktien, oder andere Datums auswählen möchte, muss man dies in der Text-Datei ändern.
+
+
+<br><br><br>
 Beispiel für eine "schlechte" Aktie:<br>
 <img src = "https://github.com/Nnnoooaaahhhh/4AHW_SWP_HUEs/blob/master/StockMarketProject/RedExample.PNG">
 <br><br>
