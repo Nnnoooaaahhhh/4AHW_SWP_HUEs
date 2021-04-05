@@ -40,7 +40,7 @@ Die Einfärbung der Charts erfolgt in beiden Fällen mit einer externen .css-Dat
 Diese Diagramme werden im gleichen Verzeichnis im Ordner Stocks -> Aktienname -> "Datum + Aktienname".png gespeichert
 
 <br><br>
-<h4> Tägliches Ausführen: </h4> <br>
+<h4> Tägliches Ausführen: </h4>
 Wenn man das Programm täglich ausführen möchte, kann man dazu den "JARFolder" verwenden
 In diesem Ordner befindet sich eine .bat Datei, die durch Ausführen die Jar-Datei ausführt; Wenn man das Programm nun täglich Ausführen möchte, muss man die .bat Datei einfach als Aufgabe im Aufgabenplaner des jeweiligen Betriebssystems hinzufügen; Die erzeugten Grafiken werden erneut im gleichen Verzeichnis abgespeichert; Wenn man verschiedene Aktien, oder andere Datums auswählen möchte, muss man dies in der Text-Datei ändern.
 
