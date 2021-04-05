@@ -44,7 +44,7 @@ Diese Diagramme werden im gleichen Verzeichnis im Ordner Stocks -> Aktienname ->
 <br><br>
 <h4> Tägliches Ausführen: </h4>
 Wenn man das Programm täglich ausführen möchte, kann man dazu den "JARFolder" verwenden
-In diesem Ordner befindet sich eine .bat Datei, die durch Ausführen die Jar-Datei ausführt; Wenn man das Programm nun täglich Ausführen möchte, muss man die .bat Datei einfach als Aufgabe im Aufgabenplaner des jeweiligen Betriebssystems hinzufügen; Die erzeugten Grafiken werden erneut im gleichen Verzeichnis abgespeichert; Wenn man verschiedene Aktien, oder andere Datums auswählen möchte, muss man dies in der Text-Datei ändern.
+In diesem Ordner befindet sich eine .bat Datei, die durch Ausführen die Jar-Datei ausführt; Diese muss mit einem Text-Editor geöfnnet werden, und bei "Pfad" der Pfad angegeben werden, indem sich die .jar Datei befindet. Wenn man das Programm nun täglich Ausführen möchte, muss man die .bat Datei einfach als Aufgabe im Aufgabenplaner des jeweiligen Betriebssystems hinzufügen; Die erzeugten Grafiken werden erneut im gleichen Verzeichnis abgespeichert; Wenn man verschiedene Aktien, oder andere Datums auswählen möchte, muss man dies in der Text-Datei ändern.
 
 
 <br><br><br>
