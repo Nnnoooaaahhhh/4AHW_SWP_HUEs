@@ -1,7 +1,7 @@
-=
+"apikey"
 2015-01-01
 2020-01-01
-compact
+full
 TSLA
 MMM
 DIS
