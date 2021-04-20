@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.json.*;
@@ -46,16 +47,72 @@ public class methods {
 		key = ticks.get(0);
 		startDate = ticks.get(1);
 		endDate = ticks.get(2);
-		linkSize = ticks.get(3);
 		BReader.close();
 		a.close();
+	}
+	
+	@SuppressWarnings({ "finally", "static-access" })
+	String getLinkSize() throws SQLException {
+		testiMain a = new testiMain();
+		String linkSize = "";
+		LocalDate lastDate = null;
+		LocalDate now = LocalDate.now();
+		String lastDateString;
+		try {
+			Connection conn = DriverManager.getConnection(DBurl);
+			String sql = "select date from " + ticks.get(a.counter) + "Adj order by date desc limit 1";
+			try {
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				while(rs.next()) {
+					lastDateString = rs.getString("date");
+					lastDate = LocalDate.parse(lastDateString);
+				}
+			}
+			catch(SQLException e) {
+				linkSize = "full";
+			}
+			if(now.compareTo(lastDate)<(-100)) {
+				linkSize ="full";
+			}
+			else {
+				linkSize = "compact";
+			}
+		}
+		catch(SQLException e) {
+			linkSize = "full";
+		}
+		finally {
+			System.out.println("Linksize: "+linkSize);
+			return linkSize;
+		}
+		
+		
+		
 	}
 	 
 
 	void database() throws SQLException {
+		float splitvalue = 1;
 		String sql;
 		Connection conn = DriverManager.getConnection(DBurl);
 
+		sql = "CREATE TABLE if not exists " + symbol + " (date text PRIMARY KEY, amount text)";
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.execute(sql);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		sql = "CREATE TABLE if not exists " + symbol + "AdjSelf (date text PRIMARY KEY, amount text)";
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.execute(sql);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
 		sql = "CREATE TABLE if not exists " + symbol+"avgAdj" + " (date text PRIMARY KEY, avg text)";
 		try {
 			Statement stmt = conn.createStatement();
@@ -70,6 +127,37 @@ public class methods {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+		
+		float tempAmount;
+		
+		sql = "INSERT OR REPLACE INTO " + symbol + "Adjself (date, amount) values (?,?)";
+		for (int i = 0; i < dates.size(); i++) {
+			
+			try {
+				splitvalue = splitvalue * Float.parseFloat(b.getJSONObject(dates.get(i)).get("8. split coefficient").toString());
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, dates.get(i));
+				tempAmount = Float.parseFloat(b.getJSONObject(dates.get(i)).get("5. adjusted close").toString());
+				tempAmount = tempAmount * splitvalue;
+				pstmt.setString(2, String.valueOf(tempAmount));
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}	
+	}
+		
+		sql = "INSERT OR REPLACE INTO " + symbol + " (date, amount) values (?,?)";
+		for (int i = 0; i < dates.size(); i++) {
+			
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, dates.get(i));
+				pstmt.setString(2, String.valueOf(b.getJSONObject(dates.get(i)).get("5. adjusted close").toString()));
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}	
+	}
 		
 		sql = "INSERT OR REPLACE INTO " + symbol +"Adj" + " (date, amount) values (?,?)";
 		for (int i = 0; i < dates.size(); i++) {

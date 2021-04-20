@@ -18,19 +18,23 @@ import javafx.stage.Stage;
 public class testiMain extends Application{
 	
 	static String fileSave;
+	static int counter;
 
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) throws Exception {
+		
 		try {
 			methods b = new methods();
 			b.decide();
-			for(int i = 4; i < b.ticks.size(); i++) {
+			for(counter = 3; counter < b.ticks.size(); counter++) {
+				System.out.println("Current Stock: " + b.ticks.get(counter));
 				b.dates.clear();
-				b.symbol = b.ticks.get(i);
+				b.symbol = b.ticks.get(counter);
 				b.link = IOUtils.toString(new URL("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="
-						+ b.ticks.get(i) + "&outputsize=" + b.linkSize +"&apikey="+b.key), Charset.forName("UTF-8"));
+						+ b.ticks.get(counter) + "&outputsize=" + b.getLinkSize() +"&apikey="+b.key), Charset.forName("UTF-8"));
 				b.connect(b.link);
-				b.database();	
+				b.database();
+				System.out.println(b.ticks.get(counter)+ " finished;" + "\n");
 			}
 			launch(args);
 		}
@@ -47,7 +51,7 @@ public class testiMain extends Application{
 		methods a = new methods();
 		Connection conn = DriverManager.getConnection(methods.DBurl);
 		
-		for(int i = 4; i < a.ticks.size(); i++) {
+		for(int i = 3; i < a.ticks.size(); i++) {
 			XYChart.Series series1 = new XYChart.Series();
 			XYChart.Series series2 = new XYChart.Series();
 			ArrayList<Float> amounts = new ArrayList<Float>();
