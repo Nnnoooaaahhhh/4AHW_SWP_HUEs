@@ -19,12 +19,14 @@ Am Anfang muss in der Textdatei, die sich im gleichen Verzeichnis wie das Progra
 1. Zeile: API-KEY<br>
 2. Zeile: Anfangsdatum für die Zeichnung des Diagramms<br>
 3. Zeile: Enddatum für die Zeichnung des Diagramms<br>
-4. Zeile: größe des API-Aufrufs, full bzw. compact<br>
-5. Zeile: Ab dieser Zeile stehen die Aktien-Abkürzunge, einer pro Zeile<br>
+4. Zeile: Ab dieser Zeile stehen die Aktien-Abkürzunge, einer pro Zeile<br>
 
 Der API-KEY kann von der Website www.alphavantage.co angefragt werden.<br>
 
 Als nächstes wird die API aufgerufen, und alle verfügbaren close-Werte abgerufen. 
+
+Die größe des Abrufs hängt vom letzten gespeicherten Datum der Aktie ab; Wenn dieser Eintrag länger als 100 Tage zurück liegt oder falls diese Aktie noch nie abgespeichert wurde, wird ein großer Aufruf gestartet, ansonsten ein kompakter.
+
 Diese werden mithilfe des Datums sortiert und in einer Tabelle in der zuvor erstellten Datenbank "infos.db" abgespeichert. Wenn der API-Aufruf stattgefunden hat, 
 aber noch keine Tabelle in der Datenbank mit dem Namen der Aktie existiert, wird eine neue Tabelle mit den Spalten date, amount und avg angelegt. 
 Falls die Tabelle bereits existiert, wird diese verwendet. Es wird pro Aktie auch noch eine zweite Tabelle erzeut, in der im jetzigen Zustand das jeweilige Datum mit dem dazugehörenden gleitenden Durchschnitt der letzten 200 Tage abgespeichert wird -> der 200-er Schnitt wird mit einem weiteren SQL-Befehl aus der Tabelle mit den close-Werten kalkuliert<br>
