@@ -2,7 +2,6 @@ import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -43,6 +42,7 @@ public class buyAndHold {
 				while(bReader.ready()) {
 					Data.add(bReader.readLine());
 				}
+				bReader.close();
 				Budget = Float.parseFloat(Data.get(0));
 				startDate = Data.get(1);
 			}
@@ -81,7 +81,6 @@ public class buyAndHold {
 			Budget = Budget - (stocksAmount*firstAmount);
 			System.out.println("Bought-Stocks: " + stocksAmount + " at price of " + firstAmount);
 			splitCor();
-			System.out.println("End-Split: " + splitFac);
 			Budget = Budget + (stocksAmount*lastAmount);
 			System.out.println("Sold-Stocks: " + stocksAmount + " at price of " + lastAmount);
 		}
@@ -106,14 +105,14 @@ public class buyAndHold {
 			System.out.println("Startbudget: " + startBudget);
 			System.out.println("Endbudget: " + Budget);
 			float temp;
-			temp = startBudget - Budget;
-			if(temp < 0) {
-				budgetPercent = Math.abs(temp/startBudget);
-				System.out.println("Budgetveränderung: " + budgetPercent * 100 + "%");
+			temp = Budget - startBudget;
+			if(temp > 0) {
+				budgetPercent = Math.abs(temp/startBudget) + 1;
+				System.out.println("Budget in % vom Startbudget: " + budgetPercent * 100 + "%");
 			}
 			else {
-				budgetPercent = temp/startBudget;
-				System.out.println("Budgetveränderung: -" + budgetPercent * 100 + "%");
+				budgetPercent = Budget/startBudget;
+				System.out.println("Budget in % vom Startbudget: " + budgetPercent * 100 + "%");
 			}
 			
 		}
