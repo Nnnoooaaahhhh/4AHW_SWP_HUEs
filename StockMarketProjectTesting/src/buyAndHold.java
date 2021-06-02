@@ -20,11 +20,16 @@ public class buyAndHold {
 	float splitFac = 1;
 	float startBudget;
 	float budgetPercent;
+	static String stock;
 	
 	void buyAndHoldEx() {
 		System.out.println("Buy-And-Hold");
+		testMain t = new testMain();
+		Budget = Float.parseFloat(t.Data.get(0));
+		startDate = t.Data.get(1);
+		startBudget = Budget;
+		stock = t.Data.get(2);
 		try {
-			buyAndHoldGetData();
 			buyAndHoldDatabase();
 			buyAndHoldMethod();
 			budgetChange();
@@ -42,6 +47,7 @@ public class buyAndHold {
 				while(bReader.ready()) {
 					Data.add(bReader.readLine());
 				}
+				
 				bReader.close();
 				Budget = Float.parseFloat(Data.get(0));
 				startDate = Data.get(1);
@@ -55,8 +61,8 @@ public class buyAndHold {
 		void buyAndHoldDatabase() {
 			try {
 				Connection conn = DriverManager.getConnection(DBUrl);
-				String sql = "select amount, date from " + Data.get(2) + " where date >= '" + startDate + "' order by date asc limit 1";
-				String sql2 = "select amount, date from " + Data.get(2) + " order by date desc limit 1";
+				String sql = "select amount, date from " + stock + " where date >= '" + startDate + "' order by date asc limit 1";
+				String sql2 = "select amount, date from " + stock + " order by date desc limit 1";
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				Statement stmt2 = conn.createStatement();
@@ -88,7 +94,7 @@ public class buyAndHold {
 		void splitCor() {
 			try {
 				Connection conn = DriverManager.getConnection(DBUrl);
-				String sql = "select split from " + Data.get(2) + " where date >= '" + startDate + "' order by date asc";
+				String sql = "select split from " + stock + " where date >= '" + startDate + "' order by date asc";
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				while(rs.next()) {

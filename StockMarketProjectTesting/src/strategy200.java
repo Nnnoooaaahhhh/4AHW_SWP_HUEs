@@ -19,12 +19,17 @@ public class strategy200 {
 	static String DBUrl = "jdbc:sqlite:../StockMarketProject/infos.db";
 	int stocksAmount = 0;
 	static Connection conn = null;
+	static String stock;
 	
 	
 	void strategy200Ex() {
+		testMain t = new testMain();
+		Budget = Float.parseFloat(t.Data.get(0));
+		startDate = t.Data.get(1);
+		startBudget = Budget;
+		stock = t.Data.get(2);
 		System.out.println();
 		System.out.println("200-Strategy");
-		strategy200GetData();
 		openConnection();
 		getDates();
 		strategy200CreateTable();
@@ -53,7 +58,7 @@ public class strategy200 {
 	
 	void strategy200CreateTable() {
 		try {
-			String sql = "CREATE TABLE if not exists " + Data.get(2) + "200 (date text PRIMARY KEY, ticker text, budget text, stocksAmount text, flag text, amount text, avg text)";
+			String sql = "CREATE TABLE if not exists " + stock + "200 (date text PRIMARY KEY, ticker text, budget text, stocksAmount text, flag text, amount text, avg text)";
 			Statement stmt = conn.createStatement();
 			stmt.execute(sql);
 		}
@@ -70,13 +75,13 @@ public class strategy200 {
 		boolean lastBuy = false;
 		boolean flag = false;
 		float splitFac = 1;
-		String sqlBuySell = "INSERT OR REPLACE INTO " + Data.get(2) + "200 (date, ticker, budget, stocksAmount, flag, amount, avg) values (?,?,?,?,?,?,?)";
+		String sqlBuySell = "INSERT OR REPLACE INTO " + stock + "200 (date, ticker, budget, stocksAmount, flag, amount, avg) values (?,?,?,?,?,?,?)";
 		
 		try {
 			for(int i = 0; i < dates.size(); i++) {
-				sql = "select * from " + Data.get(2) + " where date = '" + dates.get(i) + "' order by date asc limit 1";
+				sql = "select * from " + stock + " where date = '" + dates.get(i) + "' order by date asc limit 1";
 				
-				sql2 = "select avg from " + Data.get(2) + "avg where date = '" + dates.get(i) + "' order by date asc limit 1";
+				sql2 = "select avg from " + stock + "avg where date = '" + dates.get(i) + "' order by date asc limit 1";
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				Statement stmt2 = conn.createStatement();
@@ -101,7 +106,7 @@ public class strategy200 {
 						stocksAmount = 0;
 						PreparedStatement pstmt = conn.prepareStatement(sqlBuySell);
 						pstmt.setString(1, dates.get(i));
-						pstmt.setString(2, Data.get(2));
+						pstmt.setString(2, stock);
 						pstmt.setString(3, String.valueOf(Budget));
 						pstmt.setString(4, String.valueOf(stocksAmount));
 						pstmt.setString(5, "SELL");
@@ -119,7 +124,7 @@ public class strategy200 {
 						Budget = Budget - (stocksAmount*(closeNow ));
 						PreparedStatement pstmt = conn.prepareStatement(sqlBuySell);
 						pstmt.setString(1, dates.get(i));
-						pstmt.setString(2, Data.get(2));
+						pstmt.setString(2, stock);
 						pstmt.setString(3, String.valueOf(Budget));
 						pstmt.setString(4, String.valueOf(stocksAmount));
 						pstmt.setString(5, "BUY");
@@ -143,7 +148,7 @@ public class strategy200 {
 				stocksAmount = 0;
 				PreparedStatement pstmt = conn.prepareStatement(sqlBuySell);
 				pstmt.setString(1, dates.get(dates.size()-1));
-				pstmt.setString(2, Data.get(2));
+				pstmt.setString(2, stock);
 				pstmt.setString(3, String.valueOf(Budget));
 				pstmt.setString(4, String.valueOf(stocksAmount));
 				pstmt.setString(5, "SELL");
@@ -179,7 +184,7 @@ public class strategy200 {
 	void getDates() {
 		try {
 			
-			String sql = "select date from " + Data.get(2) + " where date >= '" + startDate + "' order by date asc";
+			String sql = "select date from " + stock + " where date >= '" + startDate + "' order by date asc";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
@@ -193,11 +198,11 @@ public class strategy200 {
 	}
 	
 	void writeDummy() {
-		String sql = "INSERT OR REPLACE INTO " + Data.get(2) + "200 (date, ticker, budget, stocksAmount, flag, amount, avg) values (?,?,?,?,?,?,?)";
+		String sql = "INSERT OR REPLACE INTO " + stock + "200 (date, ticker, budget, stocksAmount, flag, amount, avg) values (?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, LocalDate.parse(dates.get(0)).minusDays(1).toString());
-			pstmt.setString(2, Data.get(2));
+			pstmt.setString(2, stock);
 			pstmt.setString(3, String.valueOf(startBudget));
 			pstmt.setString(4, String.valueOf(0));
 			pstmt.setString(5, null);
