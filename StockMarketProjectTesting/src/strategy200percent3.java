@@ -19,23 +19,22 @@ public class strategy200percent3 {
 	float startBudget;
 	float budgetPercent;
 	static Connection conn = null;
-	static String stock;
 	
 	
-	void strategy200percent3Ex() {
+	void strategy200percent3Ex(String stock) {
 		testMain t = new testMain();
 		Budget = Float.parseFloat(t.Data.get(0));
+		Budget = Budget/(t.Data.size()-2);
 		startDate = t.Data.get(1);
-		stock = t.Data.get(2);
 		startBudget = Budget;
-		System.out.println();
-		System.out.println("200-Strategy 3%-Strategy");
+	//	System.out.println("200-Strategy 3%-Strategy with " + stock);
 		openConnection();
-		getDates();
-		strategy200percent3CreateTable();
-		writeDummy();
-		strategy200Methodpercent3();
-		budgetChange();
+		strategy200percent3TableDrop(stock);
+		getDates(stock);
+		strategy200percent3CreateTable(stock);
+		writeDummy(stock);
+		strategy200Methodpercent3(stock);
+		//budgetChange();
 		closeConnection();
 	}
 
@@ -56,7 +55,18 @@ public class strategy200percent3 {
 		startBudget = Budget;
 	}
 	
-	void strategy200percent3CreateTable() {
+	void strategy200percent3TableDrop(String stock) {
+		String sql = "DROP TABLE if exists " + stock + "200percent3";
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.execute(sql);
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	
+	void strategy200percent3CreateTable(String stock) {
 		try {
 			String sql = "CREATE TABLE if not exists " + stock + "200percent3 (date text PRIMARY KEY, ticker text, budget text, stocksAmount text, flag text, amount text, avg text)";
 			Statement stmt = conn.createStatement();
@@ -68,7 +78,7 @@ public class strategy200percent3 {
 
 	}
 	
-	void strategy200Methodpercent3() {
+	void strategy200Methodpercent3(String stock) {
 		String sql, sql2;
 		float closeNow = 0;
 		float avgNow = 0;
@@ -181,7 +191,7 @@ public class strategy200percent3 {
 	}
 	
 	
-	void getDates() {
+	void getDates(String stock) {
 		try {
 
 			String sql = "select date from " + stock + " where date >= '" + startDate + "' order by date asc";
@@ -215,7 +225,7 @@ public class strategy200percent3 {
 		}
 	}
 	
-	void writeDummy() {
+	void writeDummy(String stock) {
 		String sql = "INSERT OR REPLACE INTO " + stock + "200percent3 (date, ticker, budget, stocksAmount, flag, amount, avg) values (?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);

@@ -1,8 +1,10 @@
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class buyAndHold {
@@ -20,19 +22,46 @@ public class buyAndHold {
 	float splitFac = 1;
 	float startBudget;
 	float budgetPercent;
-	static String stock;
+	static Connection conn = null;
 	
-	void buyAndHoldEx() {
-		System.out.println("Buy-And-Hold");
+	void buyAndHoldEx(String stock) {
+		//System.out.println("Buy-And-Hold");
 		testMain t = new testMain();
 		Budget = Float.parseFloat(t.Data.get(0));
+		Budget = Budget/(t.Data.size()-2);
 		startDate = t.Data.get(1);
 		startBudget = Budget;
-		stock = t.Data.get(2);
 		try {
-			buyAndHoldDatabase();
-			buyAndHoldMethod();
-			budgetChange();
+			openConnection();
+			buyNHoldTableDrop(stock);
+			buyNHoldCreateTable(stock);
+			buyAndHoldDatabase(stock);
+			buyAndHoldMethod(stock);
+			//budgetChange();
+			closeConnection();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	void buyNHoldTableDrop(String stock) {
+		String sql = "DROP TABLE if exists " + stock + "buyNHold";
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.execute(sql);
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	
+	void buyNHoldCreateTable(String stock) {
+		try {
+			String sql = "CREATE TABLE if not exists " + stock + "buyNHold (date text PRIMARY KEY, ticker text, budget text, stocksAmount text, flag text, amount text)";
+			Statement stmt = conn.createStatement();
+			stmt.execute(sql);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -58,9 +87,8 @@ public class buyAndHold {
 			startBudget = Budget;
 		}
 		
-		void buyAndHoldDatabase() {
+		void buyAndHoldDatabase(String stock) {
 			try {
-				Connection conn = DriverManager.getConnection(DBUrl);
 				String sql = "select amount, date from " + stock + " where date >= '" + startDate + "' order by date asc limit 1";
 				String sql2 = "select amount, date from " + stock + " order by date desc limit 1";
 				Statement stmt = conn.createStatement();
@@ -75,23 +103,42 @@ public class buyAndHold {
 					lastAmount = Float.parseFloat(rs2.getString("amount"));
 					lastDate = rs2.getString("date");
 				}
-				conn.close();
 			}
 			catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		void buyAndHoldMethod() {
-			stocksAmount = (int) (Budget/firstAmount);
-			Budget = Budget - (stocksAmount*firstAmount);
-			System.out.println("Bought-Stocks: " + stocksAmount + " at price of " + firstAmount);
-			splitCor();
-			Budget = Budget + (stocksAmount*lastAmount);
-			System.out.println("Sold-Stocks: " + stocksAmount + " at price of " + lastAmount);
+		void buyAndHoldMethod(String stock) {
+			testMain t = new testMain();
+			String sql = "INSERT OR REPLACE INTO " + stock + "buyNHold (date, ticker, budget, stocksAmount, flag, amount) values (?,?,?,?,?,?)";
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				stocksAmount = (int) (Budget/firstAmount);
+				Budget = Budget - (stocksAmount*firstAmount);
+				pstmt.setString(1, t.Data.get(1));
+				pstmt.setString(2, stock);
+				pstmt.setString(3, String.valueOf(Budget));
+				pstmt.setString(4, String.valueOf(stocksAmount));
+				pstmt.setString(5, "BUY");
+				pstmt.setString(6, String.valueOf(firstAmount));
+				pstmt.executeUpdate();
+				splitCor(stock);
+				Budget = Budget + (stocksAmount*lastAmount);
+				pstmt.setString(1, LocalDate.now().toString());
+				pstmt.setString(2, stock);
+				pstmt.setString(3, String.valueOf(Budget));
+				pstmt.setString(4, String.valueOf(stocksAmount));
+				pstmt.setString(5, "SELL");
+				pstmt.setString(6, String.valueOf(lastAmount));
+				pstmt.executeUpdate();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
-		void splitCor() {
+		void splitCor(String stock) {
 			try {
 				Connection conn = DriverManager.getConnection(DBUrl);
 				String sql = "select split from " + stock + " where date >= '" + startDate + "' order by date asc";
@@ -121,5 +168,24 @@ public class buyAndHold {
 				System.out.println("Budget in % vom Startbudget: " + budgetPercent * 100 + "%");
 			}
 			
+		}
+		
+		void openConnection() {
+			
+			try {
+				conn = DriverManager.getConnection(DBUrl);
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}	
+		}
+		
+		void closeConnection() {
+			try {
+				conn.close();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 }

@@ -20,7 +20,7 @@ import javafx.scene.chart.*;
 import javafx.stage.Stage;
 
 
-public class testMain /*extends Application*/{
+public class testMain /*extends Application*/{	
 
 	static String fileSave;
 	static String DBUrl = "jdbc:sqlite:../StockMarketProject/infos.db";
@@ -33,16 +33,31 @@ public class testMain /*extends Application*/{
 		
 		testMain t = new testMain();
 		t.GetData();
-		
 		buyAndHold a = new buyAndHold();
-		a.buyAndHoldEx();
+		strategy200 b = new strategy200();
+		strategy200percent3 c = new strategy200percent3();
+		getEndings g = new getEndings();
+		for(int i = 2; i < Data.size(); i++) {
+			a.buyAndHoldEx(t.Data.get(i));
+			b.strategy200Ex(t.Data.get(i));
+			c.strategy200percent3Ex(t.Data.get(i));
+			g.getEndingsEx(t.Data.get(i));
+		}
+		
+		g.print();
+		
+	
+		
+		
+		
+		
 		
 
-		strategy200 b = new strategy200();
-		b.strategy200Ex();
+		
+		
 
-		strategy200percent3 c = new strategy200percent3();
-		c.strategy200percent3Ex();
+		
+		
 		
 		//launch(args);
 		
