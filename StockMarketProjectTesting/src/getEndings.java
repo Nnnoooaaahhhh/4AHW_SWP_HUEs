@@ -21,7 +21,7 @@ public class getEndings {
 	
 	
 	void buyNHoldData(String stock) {
-		String sql = "Select budget from " + stock + "buyNHold order by date desc limit 1";
+		String sql = "Select budget from " + stock + "buyNHoldx order by date desc limit 1";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -35,7 +35,7 @@ public class getEndings {
 	}
 	
 	void strategy200Data(String stock) {
-		String sql = "Select budget from " + stock + "200 order by date desc limit 1";
+		String sql = "Select budget from " + stock + "200x order by date desc limit 1";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -49,7 +49,7 @@ public class getEndings {
 	}
 	
 	void strategy200percent3Data(String stock) {
-		String sql = "Select budget from " + stock + "200percent3 order by date desc limit 1";
+		String sql = "Select budget from " + stock + "2003Percentx order by date desc limit 1";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -65,7 +65,6 @@ public class getEndings {
 	void print() {
 		testMain t = new testMain();
 		float startBudget = Float.parseFloat(t.Data.get(0));
-		startBudget = startBudget/(t.Data.size()-2);
 		float temp;
 		float budgetPercent;
 		temp = buyNHoldSum - startBudget;
